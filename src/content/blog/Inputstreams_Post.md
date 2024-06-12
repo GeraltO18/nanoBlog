@@ -6,22 +6,19 @@ date: "June 12 2024"
 > Note: I am no expert, and all my posts are purely based on my experience.  
 ### Problem :
 
-Recently, I was assigned a feature to improve a particular module of the product that I was working on. The module is about mailing services that we call MIME, and there's a secure version of those called SMIME. Both of these services are used to automate or define mailing tasks that should happen on your web server. For example. Consider the below flow of events.
+Recently, I was working on mailing services module called MIME, and there's a secure version of it called SMIME. Both of these services are used to automate or define mailing tasks that should happen on your web server. For example. Consider the below flow of events.
 
  !['o' output](https://i.imgur.com/AjrnbNm.png)
  
-This is a simple mail service that is commonly used to send the bill to customers. And these can be built in no code way; there are services like **pub.mime:createMimeData, pub.mime:addBodypart, pub.mime:getEnvelopeStream** that can easily build this flow for you.  
-|Service|Use |  
-|--|--|  
-| pub.mime:createMimeData | This service creates an empty mailbox for users to populate their content |  
-| pub.mime:addBodypart | This service adds the needed content to the empty mail that is created by the above service.|  
-| pub.mime:getEnvelopeStream | This service converts the mail into a stream of bytes, which is to be sent over HTTP to the client's email.|
+This is a simple mail service that is commonly used to send the bill to customers. And these can be built in no code way; There are in-built services that can easily build this flow for you.
 
 These services were good, but they were all implemented in such a way that they always loaded up the **entire body content into memory**. which is a good fast way to get things done when the files are smaller, but when the files get bigger, like 50 MB or above, there is a good chance of running into a Java heap space error, making the service flaky (works sometimes but fails sometimes). So, we have to make sure that the entire data isn't loaded into memory. This enhancement might seem simple, but in a codebase, this module hasn't been touched for like 30 years, making it much more difficult.  
+
 ### Soultion :  
+
 >Lets call **temporary space** as Tspace  
   
-Well, the solution is simple. We write a copy of the file that we are trying to load into mail into a **temporary space** and then get a Inputstream of the file in the **Tspace**. This resolved the issue, but the code needed 250 lines for refactoring, which nearly broke all the existing test cases. Learn scenarios one by one from the test cases and refactor the code accordingly.
+Well, the solution is simple. We write a copy of the file that we are trying to load into mail into a **temporary space** and then get a Inputstream of the file in the **Tspace**. This resolved the issue, but the code needed 250 lines for refactoring, which nearly broke all the existing test cases. I had to learn each scenarios one by one from the test cases and refactor the code accordingly.
 
 Interesting take on this, whenever we are dealing with heavy files, inputstream comes in handy. There are different types of input streams and different varieties of input streams. Each one serves its own niche cases. There are a few quite popular ones, like ByteArrayInputstream, which is nothing but creating an input stream with a byte array as the source. So technically, you open an inputstream to a byte array that is loaded in memory. I feel InputStream is like a portal to a storage room; you put all your stuff there and get it bit by bit whenever you need it.
 
