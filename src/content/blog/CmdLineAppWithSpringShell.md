@@ -178,9 +178,9 @@ Working with Spring was smooth, and most things worked out of the box, as Java h
 
 The worst part is that the app takes 8 seconds to complete the fetch, which is quite bad. but it's reasonable as the JVM has to startup -> spring boot starts -> spring shell -> program runs. i believe that spring boot startup and JVM start-up take up most of the time.
 
-### Work Around :   DONT USE JAVA   FOR PETTY THINGS
+### Work Around :   Avoid using JAVA for petty things ?
 ### Conclusion :  
-Spring Shell is pretty solid framework, has good community and Stack overflow post for literally everything. If you are writing enterprise software, it makes sense to write it using spring. But for small use case like these, languages like Lua or go would be great choice. Hope you had nice read, see you on next post. Thanks!
+Spring Shell is pretty solid framework, has good community and Stack overflow post for literally everything. If you are writing enterprise software, it makes sense to write it using spring. But for small use case like these, languages like Lua or go would be great choice. Hope you had nice read and feel free add your thoughts in the comments, see you on next post. Thanks!
  
 Bye 👋
 
