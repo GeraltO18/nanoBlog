@@ -13,7 +13,7 @@ At work, we have a CICD pipeline that runs test cases for each PR and gives the 
 	    TestCaseName
 	    
 ### Soultion :  
-It's not always best to start out from scratch, but it depends on what we really want. In my case, I just need a simple programme that will do the above-mentioned job. So how can I get it done in the fastest way possible? It's using templates or frameworks. When I started out to write this app, I was arguing with myself about the choice of language. I need the app to be
+It's not always best to start out from scratch, but it depends on what we really want. In my case, I just need a simple programme that will do the above-mentioned job. So how can I get it done in the fastest way possible ?. Here's where templates or frameworks helps. When I started out to write this app, I was arguing with myself about the choice of language. I need the app to be
 
  1. **Fast :**
 I don't want to wait from 10 second for the app to startup and summaries the result for me.
@@ -29,7 +29,8 @@ but...
 I chose java 🌚
 
 **Why ?!**
-Well, for a long time I wanted to learn spring and what's more good opportunity to learn spring than this? and best way to learn is to get the dirt on your hands. So, I googled what's the best framework or lib for writing a command line tool. Spring Shell was most recommended, so I used this [spring initializer](https://start.spring.io/) with below option to get a spring template with spring shell dependency.
+Well, for a long time I wanted to learn spring and what's more good opportunity to learn spring than this? and best way to learn is to get the dirt on your hands. So, I googled what's the best framework or lib for writing a command line tool. Spring Shell was most recommended, so I used this **[spring initializer](https://start.spring.io/)** with below option to get a spring template with spring shell dependency.
+
 ![Spring init](https://i.imgur.com/JB5WU8e.png)
 
 Spring Shell is a command line framework, like every other framework, it provides all the basic things that we might need for making a cmd line app like TUI (Terminal UI). it helped me bootstrap the app, now all I have to do is to add the commands and their logic to it.
@@ -43,7 +44,7 @@ Spring Shell is a command line framework, like every other framework, it provide
     │   │   │                   FIleWalkerApplication.java
     │   │   │                   ShellCommand.java
     │   │   │                   ZipFileProcessor.java
-This is the file structure that came with the initializer except the ShellCommand.java, ZipFileProcessor.java
+This is the file structure that came with the initializer except the ShellCommand.java, ZipFileProcessor.java.
 **ShellCommand.java** is where I define the commands that I am about to use. **ZipFileProcessor.java** is where I put the logic for the commands.
 let me start with the ShellCommand.java
 
@@ -79,7 +80,7 @@ Here is list of things that are new in the above code,
  - @Autowired :
  This annotation is used for dependency injection in Spring. It allows Spring to automatically inject the required dependencies into a class. 
  
-Meaning, ZipFileProcessor class gets injected here with all it's methods and variables. So, if I need the same somewhere else, we can right away we could inject it directly the required methods. And I got a question here, how's it advantages than importing the zipProcessor ? I guess, spring considers the zip processor as singleton object and by injecting, the same object is injected everywhere, and the object is shared by multiple methods.
+Meaning, ZipFileProcessor class gets injected here with all it's methods and variables. So, if I need the same somewhere else, we can right away inject it directly to the required methods. And I got a question here, how's it advantages than importing the zipProcessor ? I guess, spring considers the zip processor as singleton object and by injecting, the same object is injected everywhere, and the object is shared by multiple methods. There might some other advantages too, But yet to discover those... If you know please let me know in the comments.
 
  - @ShellComponent 
 This annotation is used to mark a class as a Spring Shell component. It allows the class to define command-line commands that can be executed in the Spring Shell environment. Classes annotated with `@ShellComponent` can define methods annotated with `@ShellMethod` to create shell commands.
